@@ -1,0 +1,282 @@
+Category	When to Use / How to Identify	Key Idea
+1. Two Pointers	The problem involves pairs, triplets, subarrays, or requires sorting or searching in a sorted array.	Use two pointers (or indices) that traverse the array, often from different ends or at different speeds.
+
+2. Sliding Window	The problem asks for a contiguous subarray, substring, or a range of elements with a specific property (e.g., largest sum, longest length, containing certain characters).	Maintain a window (subarray) that satisfies a condition and slide it to find the optimal one.
+
+3. Prefix Sum	The problem requires frequently calculating the sum of a subarray or needs to answer many range-sum queries.	Precompute a prefix array where prefix[i] is the sum of arr[0] to arr[i]. This allows you to get any subarray sum in O(1) time.
+
+4. Cyclic Sort	The problem involves a given array with numbers in a known range (e.g., 1 to n) and asks you to find a duplicate, missing, or the first missing positive number.	Iterate through the array and place each number in its correct index (if possible), leveraging the fact that index i should hold the number i+1.
+
+5. In-place Reversal	The problem requires reversing a part of the array, like reversing the entire array, subarray, or rotating elements.	Use two pointers to swap elements from the start and end of the segment until they meet in the middle.
+
+6. Modified Binary Search	The array is sorted (or partially sorted, like a rotated array) and you need to find an element, peak, or rotation point.	Although the array might not be perfectly sorted, you can still use the mid pointer to decide which half of the array to search next.
+
+Detailed Breakdown of Each Pattern
+
+1. Two Pointers
+This technique is incredibly versatile.
+
+Identification:
+
+"Find two numbers such that they add up to a specific target."
+
+"Remove duplicates from a sorted array."
+
+"Find a triplet that sums to zero."
+
+Problems involving a sorted array.
+
+Common Variations:
+
+Opposite Ends: One pointer starts at the beginning (left), one at the end (right). They move towards each other.
+
+Example: [1, 2, 3, 4, 5], find two numbers summing to 6. left points to 1, right to 5. Sum is 6? Too big, move right left. Sum is 5? Too small, move left right.
+
+Fast & Slow (Floyd's Cycle Finding): Both start at the beginning. The slow pointer moves one step at a time, while the fast pointer moves two. Used to find cycles (in linked lists) or the middle of a list.
+
+One pointer trails: One pointer (i) iterates, another (nextNonDuplicate) tracks the position for the next valid element.
+
+Example: Remove Duplicates from Sorted Array: [0,0,1,1,1,2,2]. nextNonDuplicate stays at index 1 until i finds a new number (1), then we swap.
+
+Example Problems:
+
+Two Sum (if sorted)
+
+Remove Duplicates from Sorted Array
+
+Container With Most Water
+
+Triplet Sum to Zero (3Sum)
+
+Dutch National Flag Problem (sort 0s, 1s, 2s)
+
+2. Sliding Window
+The king of "contiguous subarray" problems.
+
+Identification:
+
+Keywords: "contiguous," "subarray," "substring," "longest," "shortest," "contains," "maximum sum."
+
+"Find the longest substring with at most K distinct characters."
+
+"Find the maximum sum of any contiguous subarray of size K."
+
+Common Variations:
+
+Fixed Length Window: The window size K is given.
+
+Tactic: Calculate the sum of the first window. Then, for each subsequent element, subtract the element leaving the window and add the new element entering.
+
+Dynamic (Variable) Length Window: Find the smallest or largest window that meets a condition.
+
+Tactic: Expand the window (end pointer) until the condition is met. Then, shrink the window from the left (start pointer) until the condition is no longer met. At each valid step, update your answer.
+
+Example Problems:
+
+Maximum Sum Subarray of Size K (easy)
+
+Smallest Subarray with a Given Sum
+
+Longest Substring with K Distinct Characters
+
+Fruit Into Baskets
+
+Permutation in a String (harder)
+
+3. Prefix Sum (a.k.a. Precomputation)
+A simple but powerful idea to optimize repeated calculations.
+
+Identification:
+
+"Find a subarray that sums to K."
+
+"Find the number of subarrays that sum to K."
+
+"Answer multiple queries about the sum of a range."
+
+How it works:
+
+Create a prefixSum array where prefixSum[i] = arr[0] + arr[1] + ... + arr[i].
+
+The sum of elements from index i to j is prefixSum[j] - prefixSum[i-1].
+
+For the problem "Subarray Sum Equals K", you use a HashMap to store prefix sums and check if current_prefix_sum - k exists in the map.
+
+Example Problems:
+
+Find Pivot Index (where left sum == right sum)
+
+Subarray Sum Equals K
+
+Range Sum Query - Immutable (LeetCode)
+
+4. Cyclic Sort
+A very specific but efficient pattern for a niche set of problems.
+
+Identification:
+
+The array contains numbers in a given range (e.g., 1 to n).
+
+Keywords: "Find the missing number," "Find all duplicates," "Find the first missing positive."
+
+How it works:
+
+Iterate through the array.
+
+For each number arr[i], if it is not in its correct position (i.e., arr[i] is not at index arr[i] - 1), swap it with the number at its correct position.
+
+After sorting, iterate again. The index where arr[i] != i+1 holds the clue for the missing/duplicate number.
+
+Example Problems:
+
+Find the Missing Number
+
+Find all Duplicates in an Array
+
+Find the First Missing Positive (a classic hard problem)
+
+Find all Numbers Disappeared in an Array
+
+5. In-place Reversal
+Efficiently uses space by manipulating the array within itself.
+
+Identification:
+
+"Reverse the array in-place."
+
+"Rotate the array to the right by K steps."
+
+Problems that require reversing a subarray within the main array.
+
+How it works:
+
+Use two pointers, start and end.
+
+Swap arr[start] and arr[end].
+
+Increment start, decrement end.
+
+Repeat until start >= end.
+
+For rotation, often involves three reversals: reverse the whole array, then reverse the first K elements, then reverse the rest.
+
+Example Problems:
+
+Reverse String (basic)
+
+Rotate Array
+
+Reverse Words in a String II (in-place, without extra space)
+
+6. Modified Binary Search
+Binary search isn't just for perfectly sorted arrays.
+
+Identification:
+
+The array is sorted but then rotated. ("Find the minimum in a rotated sorted array.")
+
+You need to find a peak element (an element greater than its neighbors).
+
+The array is sorted but you need to find the first/last position of an element.
+
+How it works:
+
+You still calculate mid = start + (end - start) / 2.
+
+The key is to figure out which half of the array is sorted and then check if your target lies within that sorted half.
+
+If the left half is sorted (arr[start] <= arr[mid]) and target is between arr[start] and arr[mid], search left. Else, search right.
+
+Example Problems:
+
+Search in Rotated Sorted Array (a must-know)
+
+Find Minimum in Rotated Sorted Array
+
+Find Peak Element
+
+Find First and Last Position of Element in Sorted Array
+
+Your Strategy for Approaching a New Problem
+Understand the Problem: Read it carefully. Ask clarifying questions. What are the inputs and outputs? What are the edge cases?
+
+Identify the Pattern: Mentally run through this list. Ask yourself:
+
+Is it about pairs or triplets? -> Two Pointers.
+
+Does it say "contiguous subarray"? -> Sliding Window or Prefix Sum.
+
+Are numbers in the range 1 to N? -> Cyclic Sort.
+
+Is the array sorted or rotated? -> Modified Binary Search or Two Pointers.
+
+Does it require reversing something? -> In-place Reversal.
+
+Choose a Pattern and Implement: Start with a brute force solution in your mind, then optimize it using the pattern. Explain your approach to the interviewer.
+
+Test with Edge Cases: Empty array, single element, all duplicates, negative numbers, etc.
+
+By internalizing these patterns, you transform a daunting array problem into a familiar puzzle where you just need to pick the right tool from your mental toolbox. Good luck with your interviews
+
+iske bahar se kuch nahi aayega na interviews mein?
+Bahut accha sawal hai! Aapka concern bilkul valid hai. Short answer: 95%+ array problems in top tech company interviews (FAANG, etc.) will be a variation of these patterns.
+
+Yeh patterns aapke foundation hain. Inhe ache se seekh lena, toh aap zyadatar problems solve kar sakte ho. Lekin ek important baat hai:
+
+Interviews mein "direct" pattern nahi puche jaate. Unhe "disguise" mein puche jaate hai.
+
+Aapko question padhkar khud sochna hota hai ki kaunsa pattern lagu hoga. Koi question sirf ek pattern use karega, koi question do patterns ko mix karega.
+
+Kya "Inke Bahar" bhi kuch aata hai?
+Haan, lekin woh bhi inhi patterns ke aas-pass hi hote hain. Kuch aur concepts jo a sakte hain:
+
+Basic Array Manipulation: Yeh patterns se pehle ki basic cheezein. Jaise:
+
+Array traverse karna, elements ko shift karna.
+
+Frequency count ke liye HashMap (Dictionary) ka use karna. (Ye ek alag data structure hai, lekin array problems mein iska use bahut hota hai).
+
+Sorting karna (often a pre-processing step for other patterns).
+
+Yeh sab aapko aana chahiye, yeh patterns ki basic building blocks hain.
+
+Combination of Patterns: Yehi sabse common "trick" hai. Interviewer do patterns ko ek question mein mix kar deta hai.
+
+Example: "Find the maximum sum of a subarray of size K that has less than M distinct numbers."
+
+Yahan pe Sliding Window (subarray of size K) aur HashMap (distinct numbers count) dono use honge.
+
+Example: "Find the smallest contiguous subarray that, when sorted, sorts the entire array."
+
+Isme Two Pointers se start and end of the unsorted part dhoonde, aur phir uske andar min and max find karo.
+
+Matrix Problems (2D Arrays): 2D arrays (matrices) ke liye bhi yehi patterns adapt kiye jaate hain.
+
+2D Prefix Sum: Kisi sub-rectangle ka sum quickly nikalna.
+
+Matrix Traversal Spirally, Diagonally, etc.: Yahan pe Direction Manipulation (right, down, left, up) aur Four Pointers (top, bottom, left, right) use hote hain, jo Two Pointers ka hi extension hai.
+
+Example: "Rotate Image by 90 degrees" - yeh In-place Reversal jaisa hi hai, lekin layer-by-layer.
+
+Hard Problems with Specific Algorithms: Senior roles ya highly competitive interviews mein kuch specific algorithms a sakte hain, jo in patterns se thode advanced hain, lekin unki frequency kam hoti hai.
+
+Kadane's Algorithm: Maximum Sum Subarray (ye actually Dynamic Programming ka ek classic example hai, lekin use Sliding Window jaise lagta hai).
+
+QuickSelect: Kth largest element find karne ka efficient tareeka (ye QuickSort ke partition logic pe based hai, jo Two Pointers use karta hai).
+
+Heap (Priority Queue): "Find Top K Frequent Elements" jaisi problems. (Ye bhi ek alag data structure hai).
+
+Final Verdict: Tyaari Kaise Karein?
+Ye List Pakdo: Pehle in 6-7 patterns ko aisi practice karo ki ye aapki muscle memory ban jaye. Har pattern ke 4-5 classic questions solve karo.
+
+Mix & Practice: Jab aapko confidence aa jaye, tab aise questions solve karo jo do concepts ko mix karte hain.
+
+Don't Mug Up, Understand: Har solution ko samjho. Aapko yeh pata hona chahiye ki kyu left pointer ko move kar rahe ho ya kyu windowStart ko band kar rahe ho.
+
+HashMap & Sorting: In dono ko apna best friend samjho. Array problems mein inka use bahut hota hai.
+
+Conclusion: Agar aap in patterns ko ache se karoge, toh aap 19 out of 20 array problems solve kar loge. 20va question koi bahut hard hoga, jisme maybe naya algorithm sochna padega, lekin uske liye bhi aap inhi patterns se hi koshish shuru karoge.
+
+Aap tension mat lo. Interviewers ka maksad aapko fail karna nahi, balki yeh dekhna hai ki aap ek structured approach se problem ko kaise solve karte ho. Aur yeh patterns wohi structured approach dete hain.
+
+All the best!

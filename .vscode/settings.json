@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "vector": "cpp",
+        "ostream": "cpp",
+        "array": "cpp",
+        "iostream": "cpp",
+        "queue": "cpp",
+        "xtree": "cpp",
+        "set": "cpp",
+        "utility": "cpp",
+        "deque": "cpp",
+        "initializer_list": "cpp",
+        "list": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "algorithm": "cpp"
+    },
+    "C_Cpp.default.compilerPath": "C:/MinGW/bin/g++.exe"
+}
