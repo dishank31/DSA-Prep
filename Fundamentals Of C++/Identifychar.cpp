@@ -18,7 +18,7 @@ int main()
         cout << ch << " is lowercase alphabet" << endl;;
     }
 
-    else if (ch >=0 && ch <= 9)
+    else if (ch >= '0' && ch <= '9')
     {
         cout << ch << " is numerical value" << endl;
     }

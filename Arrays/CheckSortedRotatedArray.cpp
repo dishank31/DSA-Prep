@@ -7,15 +7,16 @@ using namespace std;
 class solution
 {
     public:
-        bool CheckSortedArray(vector<int> arr , int n)
+        bool CheckSortedRotatedArray(vector<int> arr , int n)
         {
+            int count = 0;
             for(int i=0 ; i<n ; i++)
             {
-                if(arr[i+1] >= arr[i]) 
-                {}
-                else return false;    
+                if(arr[i] >= arr[i+1]) 
+                    count++;   
             }
-            return true;
+            if(count == 0 || (count == 1 && arr[n-1] < arr[0])) return true;    // Important
+            else return false;
         }
 };
 
@@ -32,9 +33,9 @@ int main()
         cin >> arr[i];
     }
     
-    bool IsSorted = obj.CheckSortedArray(arr , n);
+    bool IsSorted = obj.CheckSortedRotatedArray(arr , n);
    
-    if(IsSorted) cout << "The array is sorted! in ascending order" << endl;
+    if(IsSorted) cout << "The array is sorted and rotated! in ascending order" << endl;
     else cout << "The array is not sorted!" << endl;
     return 0;
 }

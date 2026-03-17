@@ -66,7 +66,7 @@ void PairExplained()
     cout << p.first << " " << p.second << endl;         // To access the elements of pairs
 
     //To store three or more values
-    pair<int , pair<int,int> > p1 = {4 , {1,9}};
+    pair<int , pair<int,int>> p1 = {4 , {1,9}};
     cout << p1.first << " " << p1.second.first << " " << p1.second.second << endl;
     
     // To store pairs in an array
@@ -79,8 +79,7 @@ void ArrayExplained()
     int basic[3] = {1,2,3};         //One way to declare array
     array<int,4> a = {1,2,3,4};    //Another way to declare array
 
-    int size = a.size(); 
-    cout << "Size of array : " << size << endl;           //To get the size of the array
+    cout << "Size of array : " << a.size() << endl;           //To get the size of the array
     cout << "Element at second index : " << a.at(2) << endl;  //To get the element at a particular index
     cout << "Empty or not : " << a.empty() << endl;           //To check if the array is empty or not and it returns a boolean value
     cout << "First element : " << a.front() << endl;          //To get the first element of the array
