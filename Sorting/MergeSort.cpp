@@ -1,41 +1,45 @@
 #include<iostream>
 #include<vector>
-
 using namespace std;
+#define int long long 
 
 void Merge(vector<int> &arr, int low, int mid, int high)
 {
-    vector<int> temp;
-    int left = low;
-    int right = mid+1;
+    vector<int> temp(high - low + 1);
+    int left = low, right = mid+1;
+    int idx = 0;
 
-    while(left <= mid && right <= high)             // && is used because both conditions must be true if either one fails it should stop/break
+    while(left <= mid && right <= high)         // anyone of the array will exhaust and we will left with some candidates in non-exhausted array
     {
         if(arr[left] <= arr[right])
         {
-            temp.push_back(arr[left]);
+            temp[idx] = arr[left];
             left++;
+            idx++;
         }
         else
         {
-            temp.push_back(arr[right]);
+            temp[idx] = arr[right];
             right++;
+            idx++;
         }
     }
 
-    while(left <= mid)
+    while(left <= mid)          // Either this or the next loop wil work
     {
-        temp.push_back(arr[left]);
+        temp[idx] = arr[left];
+        idx++;
         left++;
     }
 
     while(right <= high)
     {
-        temp.push_back(arr[right]);
+        temp[idx] = arr[right];
+        idx++;
         right++;
     }
 
-    for(int i=low ; i<=high ; i++)          // This loop is for inserting the elements in main array.
+    for(int i=low ; i<=high ; i++)
     {
         arr[i] = temp[i-low];
     }
@@ -43,24 +47,23 @@ void Merge(vector<int> &arr, int low, int mid, int high)
 
 void MergeSort(vector<int> &arr, int low, int high)
 {
-    if(low < high)
-    {
-        int mid = low + (high - low) / 2;
-        MergeSort(arr, low, mid);
-        MergeSort(arr, mid+1, high);            // Dont miss out mid+1 else infinte loop mein chale jaoge
-        Merge(arr, low, mid, high);
-    }
-}
+    if(low >= high) return;
 
-int main()
+    int mid = low + (high - low) / 2;
+    MergeSort(arr, low, mid);       // Sort the left halves first for each subarray 
+    MergeSort(arr, mid+1, high);    // Then Right halves
+    Merge(arr, low, mid, high);     // Then merge both of them as per code we sort while merging    
+}   
+
+signed main()
 {
-    int n;
-    cout << "Enter size of array : ";
-    cin >> n;
-    vector<int> arr(n);
-    cout << "Enter " << n << " spaced numbers : ";
-    for(int i=0 ; i<n ; i++) cin >> arr[i];
-    MergeSort(arr, 0, n-1);
-    for(int i=0 ; i<n ; i++) cout << arr[i] << " ";
-    return 0;
+    int N;
+    cin >> N;
+
+    vector<int> arr(N);
+    for(int i=0 ; i<N ; i++) cin >> arr[i];
+
+    MergeSort(arr, 0, N-1);
+
+    for(auto it : arr) cout << it << " ";
 }
